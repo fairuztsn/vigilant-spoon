@@ -1,3 +1,8 @@
+# Ignore virtual environment
+venv/
+
+# Ignore environment variables file
 .env
-./venv/
-./data/*
+
+# Ignore data directory contents
+/data/*
