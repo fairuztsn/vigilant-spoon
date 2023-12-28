@@ -60,7 +60,7 @@ def write_to_txt(genres: list, artists: list) -> None:
     
     print(f"Data has been written to: {output_file_path}")
 
-if __name__ == "__main__":
+def generate() -> None:
     load_dotenv()
 
     sp = spotipy.Spotify(
@@ -108,3 +108,16 @@ if __name__ == "__main__":
     artists = list(map(lambda artist: "_".join(artist.split(" ")), artists))
 
     write_to_txt(genres, artists)
+
+if __name__ == "__main__":
+    artist_file = os.path.join("data", "artists.txt")
+
+    with open(artist_file, "r", encoding="utf-8") as file:
+        content = file.read()
+
+    artists = content.split("\n")
+    artists = map(lambda artist: "_".join(artist.split(" ")), artists)
+    
+    with open(artist_file, "w", encoding="utf-8") as file:
+        for artist in artists:
+            file.write(artist + "\n")
