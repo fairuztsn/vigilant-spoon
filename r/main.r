@@ -1,10 +1,35 @@
-file_path <- file.path("data", "top_artists_and_time_4_weeks.csv")
-data <- read.csv(file_path)
+install.packages("wordcloud", repos = "https://cran.r-project.org")
+library(wordcloud)
 
-# Check if 'wordcloud' is installed
-if (!require(wordcloud, quietly = TRUE)) {
-    install.packages("wordcloud")
-    library(wordcloud)
-}
+directory <- "C:/Users/tsfai/Projects/word-clouds/data"
+filename <- "genres_30_days_assumption.txt"
+full_path <- file.path(directory, filename)
 
-wordcloud(words = data$artist, freq = data$listening_time_minutes, scale = c(3, 0.5), min.freq = 1, colors = brewer.pal(8, "Dark2")) # nolint: line_length_linter.
+text <- tolower(readLines(full_path, warn = FALSE))
+text <- paste(text, collapse = " ")
+
+word_freq <- table(strsplit(text, "\\s"))
+
+print(head(word_freq))
+
+
+wordcloud(words = names(word_freq), freq = word_freq, scale = c(3, 0.5), min.freq = 2, colors = brewer.pal(8, "Dark2"))
+
+filename <- "artists.txt"
+full_path <- file.path(directory, filename)
+
+text <- tolower(readLines(full_path, warn = FALSE))
+text <- paste(text, collapse = " ")
+
+word_freq <- table(strsplit(text, "\\s"))
+
+print(head(word_freq))
+
+wordcloud(
+    words = names(word_freq),
+    freq = word_freq,
+    scale = c(3, 0.5),
+    min.freq = 2,
+    colors = brewer.pal(8, "Dark2"),
+    rot.per = 0
+)

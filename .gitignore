@@ -3,6 +3,7 @@ venv/
 
 # Ignore environment variables file
 .env
+Rplots.pdf
 
 # Ignore data directory contents
 /data/*
